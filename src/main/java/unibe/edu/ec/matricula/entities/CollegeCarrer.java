@@ -1,9 +1,7 @@
 package unibe.edu.ec.matricula.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class CollegeCarrer {
@@ -15,4 +13,10 @@ public class CollegeCarrer {
     private String name;
 
     private int semester;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Teacher decade;
+
+    @ManyToMany(mappedBy = "collegeCarrers")
+    private List<Student> students;
 }

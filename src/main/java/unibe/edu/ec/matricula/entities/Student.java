@@ -1,8 +1,8 @@
 package unibe.edu.ec.matricula.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Student extends Person {
@@ -10,9 +10,19 @@ public class Student extends Person {
 
     private boolean status;
 
+
+    @JoinTable(
+            name = "student_collegeCarrer",
+            joinColumns = @JoinColumn(name="student",nullable = false),
+            inverseJoinColumns = @JoinColumn(name="collegeCarrer", nullable = false)
+    )
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<CollegeCarrer> collegeCarrers;
+
     public Student() {
 
     }
+
 
     public Student(String id, String name, String address, String phoneNumber, String email, Date birthDate, boolean status) {
         super(id, name, address, phoneNumber, email, birthDate);

@@ -19,14 +19,26 @@ public class Student extends Person {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<CollegeCarrer> collegeCarrers;
 
+    @ManyToMany(mappedBy = "students")
+    private List<Parallel> parallels;
+
     public Student() {
 
     }
 
-
-    public Student(String id, String name, String address, String phoneNumber, String email, Date birthDate, boolean status) {
+    public Student(String id, String name, String address, String phoneNumber, String email, Date birthDate, boolean status, List<CollegeCarrer> collegeCarrers, List<Parallel> parallels) {
         super(id, name, address, phoneNumber, email, birthDate);
         this.status = status;
+        this.collegeCarrers = collegeCarrers;
+        this.parallels = parallels;
+    }
+
+    public List<CollegeCarrer> getCollegeCarrers() {
+        return collegeCarrers;
+    }
+
+    public void setCollegeCarrers(List<CollegeCarrer> collegeCarrers) {
+        this.collegeCarrers = collegeCarrers;
     }
 
     public boolean isStatus() {
@@ -35,6 +47,14 @@ public class Student extends Person {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public List<Parallel> getParallels() {
+        return parallels;
+    }
+
+    public void setParallels(List<Parallel> parallels) {
+        this.parallels = parallels;
     }
 
     @Override

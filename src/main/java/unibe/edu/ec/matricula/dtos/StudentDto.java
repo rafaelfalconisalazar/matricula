@@ -1,6 +1,7 @@
 package unibe.edu.ec.matricula.dtos;
 
 import unibe.edu.ec.matricula.entities.CollegeCarrer;
+import unibe.edu.ec.matricula.entities.Parallel;
 import unibe.edu.ec.matricula.entities.Student;
 
 import java.util.Date;
@@ -10,7 +11,7 @@ public class StudentDto {
 
     private String id;
 
-    private String name,address, phoneNumber,email;
+    private String name, address, phoneNumber, email;
 
     private Date birthDate;
 
@@ -18,11 +19,13 @@ public class StudentDto {
 
     private List<CollegeCarrerDto> collegeCarrerDtos;
 
-    public StudentDto(){
+    private List<ParallelDto> parallelDtos;
+
+    public StudentDto() {
 
     }
 
-    public StudentDto(String id, String name, String address, String phoneNumber, String email, Date birthDate, boolean status, List<CollegeCarrerDto> collegeCarrerDtos) {
+    public StudentDto(String id, String name, String address, String phoneNumber, String email, Date birthDate, boolean status, List<CollegeCarrerDto> collegeCarrerDtos, List<ParallelDto> parallelDtos) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -31,19 +34,26 @@ public class StudentDto {
         this.birthDate = birthDate;
         this.status = status;
         this.collegeCarrerDtos = collegeCarrerDtos;
+        this.parallelDtos = parallelDtos;
     }
 
-    public  StudentDto(Student student){
-        this.id=student.getId();
-        this.name=student.getName();
-        this.address=student.getAddress();
-        this.phoneNumber=student.getPhoneNumber();
-        this.email=student.getEmail();
-        this.status=student.isStatus();
-        this.birthDate=student.getBirthDate();
-        for ( CollegeCarrer collegeCarrer: student.getCollegeCarrers()) {
-            CollegeCarrerDto collegeCarrerDto= new CollegeCarrerDto(collegeCarrer);
+    public StudentDto(Student student) {
+        this.id = student.getId();
+        this.name = student.getName();
+        this.address = student.getAddress();
+        this.phoneNumber = student.getPhoneNumber();
+        this.email = student.getEmail();
+        this.status = student.isStatus();
+        this.birthDate = student.getBirthDate();
+        for (CollegeCarrer collegeCarrer : student.getCollegeCarrers()) {
+            CollegeCarrerDto collegeCarrerDto = new CollegeCarrerDto(collegeCarrer);
             this.collegeCarrerDtos.add(collegeCarrerDto);
+        }
+
+        for (Parallel parallel :
+                student.getParallels()) {
+            ParallelDto parallelDto = new ParallelDto(parallel);
+            this.parallelDtos.add(parallelDto);
         }
     }
 
@@ -111,6 +121,14 @@ public class StudentDto {
         this.collegeCarrerDtos = collegeCarrerDtos;
     }
 
+    public List<ParallelDto> getParallelDtos() {
+        return parallelDtos;
+    }
+
+    public void setParallelDtos(List<ParallelDto> parallelDtos) {
+        this.parallelDtos = parallelDtos;
+    }
+
     @Override
     public String toString() {
         return "StudentDto{" +
@@ -122,6 +140,7 @@ public class StudentDto {
                 ", birthDate=" + birthDate +
                 ", status=" + status +
                 ", collegeCarrerDtos=" + collegeCarrerDtos +
+                ", parallelDtos=" + parallelDtos +
                 '}';
     }
 }

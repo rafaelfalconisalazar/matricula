@@ -57,10 +57,5 @@ public class Student extends Person {
         this.parallels = parallels;
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "status=" + status +
-                '}';
-    }
+
 }

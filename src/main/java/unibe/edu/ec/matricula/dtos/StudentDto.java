@@ -4,6 +4,8 @@ import unibe.edu.ec.matricula.entities.CollegeCarrer;
 import unibe.edu.ec.matricula.entities.Parallel;
 import unibe.edu.ec.matricula.entities.Student;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +15,7 @@ public class StudentDto {
 
     private String name, address, phoneNumber, email;
 
-    private Date birthDate;
+    private String birthDate;
 
     private boolean status;
 
@@ -25,7 +27,7 @@ public class StudentDto {
 
     }
 
-    public StudentDto(String id, String name, String address, String phoneNumber, String email, Date birthDate, boolean status, List<CollegeCarrerDto> collegeCarrerDtos, List<ParallelDto> parallelDtos) {
+    public StudentDto(String id, String name, String address, String phoneNumber, String email, String birthDate, boolean status, List<CollegeCarrerDto> collegeCarrerDtos, List<ParallelDto> parallelDtos) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -44,7 +46,8 @@ public class StudentDto {
         this.phoneNumber = student.getPhoneNumber();
         this.email = student.getEmail();
         this.status = student.isStatus();
-        this.birthDate = student.getBirthDate();
+        DateFormat dateFormat= new SimpleDateFormat("dd/MM/yyyy");
+        this.birthDate=dateFormat.format(student.getBirthDate());
         for (CollegeCarrer collegeCarrer : student.getCollegeCarrers()) {
             CollegeCarrerDto collegeCarrerDto = new CollegeCarrerDto(collegeCarrer);
             this.collegeCarrerDtos.add(collegeCarrerDto);
@@ -97,11 +100,11 @@ public class StudentDto {
         this.email = email;
     }
 
-    public Date getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 

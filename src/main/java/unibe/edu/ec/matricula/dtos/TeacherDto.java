@@ -2,6 +2,8 @@ package unibe.edu.ec.matricula.dtos;
 
 import unibe.edu.ec.matricula.entities.Teacher;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TeacherDto {
@@ -10,13 +12,13 @@ public class TeacherDto {
 
     private String name,address, phoneNumber,email,degreeType;
 
-    private Date birthDate;
+    private String birthDate;
 
     public TeacherDto(){
 
     }
 
-    public TeacherDto(String id, String name, String address, String phoneNumber, String email, String degreeType, Date birthDate) {
+    public TeacherDto(String id, String name, String address, String phoneNumber, String email, String degreeType, String birthDate) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -33,7 +35,8 @@ public class TeacherDto {
         this.phoneNumber=teacher.getPhoneNumber();
         this.email=teacher.getEmail();
         this.degreeType=teacher.getDegreeType();
-        this.birthDate=teacher.getBirthDate();
+        DateFormat dateFormat= new SimpleDateFormat("dd/MM/yyyy");
+        this.birthDate=dateFormat.format(teacher.getBirthDate());
     }
 
     public String getId() {
@@ -84,11 +87,11 @@ public class TeacherDto {
         this.degreeType = degreeType;
     }
 
-    public Date getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 

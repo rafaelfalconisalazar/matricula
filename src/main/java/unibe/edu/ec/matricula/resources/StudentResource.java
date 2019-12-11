@@ -12,6 +12,7 @@ import unibe.edu.ec.matricula.controllers.StudentController;
 import unibe.edu.ec.matricula.dtos.StudentDto;
 import unibe.edu.ec.matricula.resources.exeptions.DateFormatInvalidad;
 import unibe.edu.ec.matricula.resources.exeptions.StudentAllReadyExist;
+import unibe.edu.ec.matricula.resources.exeptions.StudentIdNotFoundException;
 
 import javax.validation.Valid;
 import java.text.ParseException;
@@ -23,6 +24,8 @@ public class StudentResource {
 
     public static final String STUDENT = "/students";
 
+    public static final String ID="/{id}";
+
     @Autowired
     private StudentController studentController;
 
@@ -33,12 +36,22 @@ public class StudentResource {
         } catch (ParseException e) {
             throw new DateFormatInvalidad("",1);
         }
-
-        //return studentDto.toString();
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public List<StudentDto> readStudentAll() {
         return this.studentController.readStudentAll();
+    }
+
+    @RequestMapping(value = ID, method = RequestMethod.GET)
+    public StudentDto readStudent(@PathVariable String id) throws StudentIdNotFoundException {
+        return this.studentController.readStudent(id).orElseThrow(()-> new StudentIdNotFoundException(id));
+    }
+
+    @PutMapping(value = ID)
+    public void putStudent(@PathVariable String id, @Valid @RequestBody StudentDto studentDto) throws  StudentIdNotFoundException{
+        if(!this.studentController.putStudent(id,studentDto)){
+            throw new StudentIdNotFoundException();
+        }
     }
 }

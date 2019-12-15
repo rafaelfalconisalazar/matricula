@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class StudentController {
@@ -41,5 +42,26 @@ public class StudentController {
             studentDtos.add(new StudentDto(student));
         }
         return studentDtos;
+    }
+
+    public Optional<StudentDto> readStudent(String id) {
+        Optional<Student> student = this.studentRepository.findById(id);
+        if (student.isPresent()) {
+            return Optional.of(new StudentDto(student.get()));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    public boolean putStudent(String id, StudentDto studentDto) {
+        Optional<Student> student = this.studentRepository.findById(id);
+        assert student != null;
+        Student studentDB = student.get();
+        studentDB.setStatus(studentDto.isStatus());
+        studentDB.setAddress(studentDto.getAddress());
+        studentDB.setEmail(studentDto.getEmail());
+        studentDB.setPhoneNumber(studentDto.getPhoneNumber());
+        this.studentRepository.save(studentDB);
+        return true;
     }
 }

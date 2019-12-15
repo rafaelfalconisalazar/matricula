@@ -36,7 +36,7 @@ public class StudentResourceTest {
         List<CollegeCarrerDto> collegeCarrerDtos= new ArrayList<CollegeCarrerDto>();
         List<ParallelDto> parallelDtos= new ArrayList<ParallelDto>();
         this.studentDto= new StudentDto("1716203292","ee","Quito","3368945456"
-                ,"adf@asfa.com","291-23/1990",true,collegeCarrerDtos,parallelDtos);
+                ,"adf@asfa.com","29/11/1990",true,collegeCarrerDtos,parallelDtos);
     }
 
     @Test

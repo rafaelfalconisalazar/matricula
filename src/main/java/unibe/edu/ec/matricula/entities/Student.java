@@ -12,15 +12,17 @@ public class Student extends Person {
 
 
     @JoinTable(
-            name = "student_collegeCarrer",
+            name = "student_college_carrer",
             joinColumns = @JoinColumn(name="student",nullable = false),
-            inverseJoinColumns = @JoinColumn(name="collegeCarrer", nullable = false)
+            inverseJoinColumns = @JoinColumn(name="college_carrer", nullable = false)
     )
     @ManyToMany(cascade = CascadeType.ALL)
     private List<CollegeCarrer> collegeCarrers;
 
     @ManyToMany(mappedBy = "students")
     private List<Parallel> parallels;
+
+
 
     public Student() {
 

@@ -16,7 +16,7 @@ public class Parallel {
     private Subject subject;
 
     @JoinTable(
-            name = "parallel_studen",
+            name = "parallel_student",
             joinColumns = @JoinColumn(name = "student",nullable = false),
             inverseJoinColumns = @JoinColumn(name="parallel",nullable = false)
 
